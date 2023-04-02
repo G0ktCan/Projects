@@ -1,0 +1,31 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
+from  sklearn.linear_model import LinearRegression
+from sklearn.model_selection  import train_test_split
+from sklearn.metrics import  r2_score
+
+df = pd.read_csv('dosya.csv')
+
+X = df.iloc[:,-1].values
+y = df.iloc[:,1].values
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 1/3, random_state = 0)
+
+reg = LinearRegression()
+reg.fit(X_train,y_train)
+
+
+plt.scatter(X_train, y_train, color = 'red')
+plt.title('Kıdeme Göre Maaş Tahmini Regresyon Modeli')
+plt.xlabel('Kıdem')
+plt.ylabel('Maaş')
+plt.scatter(X_train, y_train, color = 'red')
+modelin_tahmin_ettigi_y = reg.predict(X_train)
+plt.scatter(X_train, modelin_tahmin_ettigi_y, color = 'blue')
+plt.title('Kıdeme Göre Maaş Tahmini Regresyon Modeli')
+plt.xlabel('Kıdem')
+plt.ylabel('Maaş')
+plt.show()
